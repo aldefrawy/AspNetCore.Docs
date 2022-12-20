@@ -200,18 +200,18 @@ In the `BlazorWebAssemblySignalRApp.Server` project, create a `Hubs` (plural) fo
    using BlazorWebAssemblySignalRApp.Server.Hubs;
    ```
 
-1. Add SignalR and Response Compression Middleware services to `Program.cs`:
+1. Add SignalR and Response Compression Middleware services to `Startup.cs`:
 
    ```csharp
    builder.Services.AddSignalR();
-   builder.Services.AddResponseCompression(opts =>
-   {
-       opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
-           new[] { "application/octet-stream" });
-   });
+   services.AddResponseCompression(opts =>
+            {
+                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "application/octet-stream" });
+            });
    ```
 
-1. In `Program.cs`:
+1. In `Startup.cs`:
 
    * Use Response Compression Middleware at the top of the processing pipeline's configuration.
    * Between the endpoints for controllers and the client-side fallback, add an endpoint for the hub.
